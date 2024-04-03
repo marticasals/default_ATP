@@ -59,11 +59,31 @@ prop_default <- sum(df_ATP$Default == "YES") / nrow(df_ATP)
 ci_default <- prop.test(sum(df_ATP$Default == "YES"), nrow(df_ATP))$conf.int
 prop_per_1000_default <- prop_default * 1000
 ci_per_1000_default <- prop.test(sum(df_ATP$Default == "YES"), nrow(df_ATP), conf.level = 0.95)$conf.int * 1000
-cat("Default incidence rate per 1000 matches:", prop_per_1000_default, "%\n")
+cat("Incidence proportion of Default per 1000 matches:", prop_per_1000_default, "%\n")
 cat("Confidence interval for Default per 1000 matches:", ci_per_1000_default[1], "-", ci_per_1000_default[2], "%\n")
-cat("Default incidence proportion:", prop_default, "\n")
+cat("Incidence proportion of Default:", prop_default, "\n")
 cat("Confidence interval for Default:", ci_default[1], "-", ci_default[2], "\n")
+df_ATP$Default_Before <- ifelse(is.na(df_ATP$Default_Type) | df_ATP$Default_Type != "Before", "NO", "YES")
+df_ATP$Default_During <- ifelse(is.na(df_ATP$Default_Type) | df_ATP$Default_Type != "During", "NO", "YES")
 
+defaults_before_yes <- sum(df_ATP$Default_Before == "YES")
+total_matches <- nrow(df_ATP)
+prop_default_before <- defaults_before_yes / total_matches
+ci_default_before <- prop.test(defaults_before_yes, total_matches)$conf.int
+prop_per_1000_default_before <- prop_default_before * 1000
+ci_per_1000_default_before <- ci_default_before * 1000
+
+cat("Incidence Proportion of Defaults 'Before' per 1000 matches:", prop_per_1000_default_before, "\n")
+cat("Confidence interval for Defaults 'Before' per 1000 matches:", ci_per_1000_default_before[1], "-", ci_per_1000_default_before[2], "\n")
+
+defaults_during_yes <- sum(df_ATP$Default_During == "YES")
+prop_default_during <- defaults_during_yes / total_matches
+ci_default_during <- prop.test(defaults_during_yes, total_matches)$conf.int
+prop_per_1000_default_during <- prop_default_during * 1000
+ci_per_1000_default_during <- ci_default_during * 1000
+
+cat("Incidence Proportion of defaults 'During' per 1000 matches:", prop_per_1000_default_during, "\n")
+cat("Confidence interval for defaults 'During' per 1000 matches:", ci_per_1000_default_during[1], "-", ci_per_1000_default_during[2], "\n")
 
 #Analysis of the time trend of the Default.
 default_cases_by_year <- df_ATP %>%
