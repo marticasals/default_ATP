@@ -1,4 +1,4 @@
-# Player Defaults in Professional ATP Tour Tournaments from 1973 to 2019
+# Player Defaults in professional men's tennis tournaments from 1973 to 2019
 
 # Manuscript submited in xxxx
 Originally, this is the repository for the manuscript _"Player Defaults in Professional ATP Tour Tournaments from 1973 to 2019"_ that is submited in the 
